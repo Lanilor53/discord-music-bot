@@ -43,7 +43,7 @@ async def play(ctx, *args):
     await ctx.channel.send(f"Trying to play {video.title}")
     # Get audio stream
     best_audio = video.getbestaudio()
-    audio = discord.FFmpegOpusAudio(best_audio.url, before_options="-fflags +discardcorrupt")
+    audio = discord.FFmpegOpusAudio(best_audio.url, before_options="-reconnect 1 -reconnect_streamed 1 -reconnect_delay_max 5 -fflags +discardcorrupt")
     # Play!
     ctx.guild.voice_client.play(audio, after=_on_play_end)
 
