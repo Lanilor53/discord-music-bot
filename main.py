@@ -44,7 +44,8 @@ async def play(ctx, *args):
     # Get audio stream
     best_audio = video.getbestaudio()
     audio = discord.FFmpegPCMAudio(best_audio.url)
-    await ctx.guild.voice_client.play(audio, after=_on_play_end)
+    # Play!
+    ctx.guild.voice_client.play(audio, after=_on_play_end)
 
 
 @bot.event
@@ -52,8 +53,7 @@ async def on_command_error(ctx, error):
     if isinstance(error, commands.CommandNotFound):
         await ctx.channel.send("No such command")
     else:
-        # todo: uncomment when random errors stop popping up on any command use?
-        # await ctx.channel.send("Something went wrong while executing command")
+        await ctx.channel.send("Something went wrong while executing command")
         raise error
 
 
